@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordPay - Earn by Typing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background-color: #2b6777;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+    }
+    main {
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      margin: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .earning {
+      font-size: 18px;
+      margin-top: 10px;
+      color: white;
+    }
+    .btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2b6777;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #1f4c59;
+    }
+    .form {
+      margin-top: 20px;
+    }
+    input[type="text"], input[type="tel"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WordPay - Type to Earn Money</h1>
+    <div class="earning">Your Total Earning: ₹<span id="earning">0</span></div>
+  </header>
+  <main>
+    <h3>Typing Material:</h3>
+    <div id="textToType"></div>
+    <textarea id="userInput" placeholder="Start typing here..."></textarea>
+    <button class="btn" onclick="submitText()">Submit & Next</button><div class="form">
+  <h3>Withdraw Earnings</h3>
+  <form action="https://formsubmit.co/aaravbretiya@gmail.com" method="POST">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="Name" placeholder="Your Name" required>
+    <input type="text" name="UPI" placeholder="Your UPI ID" required>
+    <input type="tel" name="Phone" placeholder="Your Phone Number" required>
+    <input type="number" name="Amount" placeholder="Withdraw Amount (in ₹)" required>
+    <button type="submit" class="btn">Request Withdraw</button>
+  </form>
+</div>
+
+  </main>
+  <script>
+    const texts = [
+      "Technology has revolutionized the world in numerous ways.",
+      "India is known for its rich cultural heritage and diversity.",
+      "Artificial intelligence is the future of digital transformation.",
+      "The importance of education in human development cannot be ignored.",
+      "Climate change is a major global issue that needs urgent attention.",
+      "Books are a person's best friend and a window to knowledge.",
+      "Health is wealth, and a healthy mind resides in a healthy body.",
+      "Space exploration has expanded the horizons of scientific knowledge.",
+      "Yoga is a gift of ancient India to the modern world.",
+      "Freedom of speech is the foundation of any democratic society.",
+      "Globalization has connected markets across the world.",
+      "Digital learning is the future of education.",
+      "Leadership is about inspiring others to do their best.",
+      "Entrepreneurship drives economic growth and innovation.",
+      "History teaches us lessons we must never forget.",
+      "A disciplined lifestyle leads to greater productivity.",
+      "Hard work is the key to success in every field.",
+      "Language is a powerful tool for communication.",
+      "Renewable energy is the need of the hour.",
+      "The internet has made the world a global village.",
+      "Mental health is equally important as physical health.",
+      "Teamwork leads to better outcomes and shared success.",
+      "Self-motivation is essential for achieving goals.",
+      "Reading habits improve vocabulary and imagination.",
+      "The Constitution of India is the supreme law of the land.",
+      "Innovation starts with curiosity and experimentation.",
+      "Water conservation should be everyone’s responsibility.",
+      "Online businesses are reshaping global commerce.",
+      "Agriculture is the backbone of the Indian economy.",
+      "Discipline is the bridge between goals and accomplishments.",
+      "Social media has changed the way we interact and express.",
+      "Critical thinking is vital for problem solving.",
+      "Time management enhances work-life balance.",
+      "Great leaders are remembered for their vision and values.",
+      "The youth of a nation shapes its future.",
+      "Coding skills are essential in today's digital world.",
+      "Public speaking improves confidence and articulation.",
+      "The judiciary upholds justice in a democratic country.",
+      "Travel helps us learn about new cultures and places.",
+      "Protecting biodiversity preserves the planet's balance.",
+      "Every citizen has a role to play in nation building.",
+      "The right to education empowers the underprivileged.",
+      "Clean energy sources reduce pollution and save resources.",
+      "Patriotism is reflected through actions, not just words.",
+      "Literacy is a fundamental right and a powerful weapon.",
+      "Curiosity is the root of all scientific discovery.",
+      "Urbanization brings opportunities and challenges.",
+      "Punctuality shows respect for others’ time.",
+      "Sustainable living ensures a better future."
+    ];let currentTextIndex = 0;
+let totalEarning = parseInt(localStorage.getItem('totalEarning')) || 0;
+
+function updateEarningDisplay() {
+  document.getElementById("earning").innerText = totalEarning;
+}
+
+function loadText() {
+  document.getElementById("textToType").innerText = texts[currentTextIndex];
+  document.getElementById("userInput").value = "";
+}
+
+function submitText() {
+  const userTyped = document.getElementById("userInput").value.trim();
+  const targetText = texts[currentTextIndex];
+  const typedWords = userTyped.split(/\s+/).length;
+  if (typedWords >= 5) {
+    totalEarning += typedWords;
+    localStorage.setItem('totalEarning', totalEarning);
+    updateEarningDisplay();
+    currentTextIndex = (currentTextIndex + 1) % texts.length;
+    loadText();
+  } else {
+    alert("Type at least 5 words to proceed.");
+  }
+}
+
+window.onload = function () {
+  loadText();
+  updateEarningDisplay();
+};
+
+  </script>
+</body>
+</html>
